@@ -1,0 +1,62 @@
+//question 1 lab4
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+void file_process(const char *old_file, const char *new_file) {
+    FILE *input, *output;
+    char buffer[50];
+    float value;
+    int invalid_count = 0;
+
+    // Opening the file for reading
+    input = fopen(old_file, "r");
+    if (!input) {
+        perror("Error opening input file");
+        return;
+    }
+
+    // Opening the file for writing
+    output = fopen(new_file, "w");
+    if (!output) {
+        perror("Error opening output file");
+        fclose(input);
+        return;
+    }
+
+    // Read the file line by line
+    while (fscanf(input, "%s", buffer) != EOF) {
+        // Try to parse the token as a float
+        if (sscanf(buffer, "%f", &value) == 1) {
+            // Valid float: write to the destination file
+            fprintf(output, "%.2f\n", value);
+        } else {
+            // Invalid token
+            invalid_count++;
+        }
+    }
+
+    // Checking for errors 
+    if (ferror(input)) {
+        perror("Error reading file");
+    }
+
+    // Close both files
+    fclose(input);
+    fclose(output);
+
+    // Display the count of invalid values
+    printf("Process complete.\n");
+    printf("Number of invalid values: %d\n", invalid_count);
+}
+
+int main() {
+    // File names
+    const char *old_file = "data.txt";
+    const char *new_file = "data_d1.txt";
+
+    // Process the file
+    file_process(old_file, new_file);
+
+    return 0;
+}
