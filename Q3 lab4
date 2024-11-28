@@ -1,0 +1,42 @@
+//Question3 lab 4
+#include<iostream>
+#include<iomanip>
+#include <cstdlib> 
+using namespace std;
+
+
+void print_real( float number, int fieldspace, int precision);
+template <typename T>
+void update_scale(T &m1, T &m2, T m3 = 10);
+int main(void){
+float  a, b;
+cout<<" Please input two real numbers";
+cin>>a>>b;	
+
+print_real(a,7,3);
+print_real(b,7,3);
+// call the function update_scale with ONLY the actual parameters a  and b
+update_scale(a,b);
+print_real(a,7,3);
+print_real(b,7,3);
+return 0;
+	
+}
+
+/* complete the body of the function */
+//function to print the value of number in fixed point notation
+void print_real( float number, int fieldspace, int precision){
+	cout << setw(fieldspace)<<fixed<<setprecision(precision)<<number<<endl;
+}
+
+//template function to update_scale
+// add the function defintion (header+body) of the template function update_scale
+template<typename T>
+void update_scale(T &m1, T &m2, T m3){
+	T orginal_m1 = m1;
+	T orginal_m2 = m2;
+	
+	//update m1 and m2
+	m1 = (orginal_m1 + orginal_m2)*m3;
+	m2 = (orginal_m1 - orginal_m2)*m3;
+}
