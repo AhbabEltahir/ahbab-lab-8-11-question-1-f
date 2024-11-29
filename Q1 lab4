@@ -26,12 +26,10 @@ void file_process(const char *old_file, const char *new_file) {
 
     // Read the file line by line
     while (fscanf(input, "%s", buffer) != EOF) {
-        // Try to parse the token as a float
         if (sscanf(buffer, "%f", &value) == 1) {
-            // Valid float: write to the destination file
             fprintf(output, "%.2f\n", value);
         } else {
-            // Invalid token
+            // Invalid line
             invalid_count++;
         }
     }
